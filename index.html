@@ -61,8 +61,14 @@
 	
 </head>
 <body>
-	<div class="navbar palette palette-night-dark">Influx</div>
-	<div style="position:absolute;right:0%;bottom:0%;z-index:10;"><a onclick="TogetherJS(this); return false;"><img src="https://togetherjs.com/images/start-togetherjs-blue.png" style="width: 205px;" /></a></div>
+	<div class="navbar palette palette-night-dark" >
+		<ul>
+			<li>Influx</li>
+			<li style="position: absolute; right: 20px">
+				<a onclick="TogetherJS(this); return false;">TogetherJS</a>
+			</li>
+		</ul>
+	</div>
 	<div id="content">
 		<div id="workArea" class="workArea palette-concrete">
 			<canvas id="myCanvas" style="width:100%;height:100%;"></canvas>
