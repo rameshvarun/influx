@@ -1,0 +1,106 @@
+/* line 1, ../sass/_layout.sass */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* line 6, ../sass/_layout.sass */
+#content {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 10, ../sass/_layout.sass */
+#workArea {
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+
+/* line 15, ../sass/_layout.sass */
+#preview {
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+
+/* line 1, ../sass/_modules.sass */
+.objButton {
+  width: 80px;
+  left: 5%;
+  padding: 30px 0;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  font-size: 2em;
+  position: absolute;
+  cursor: pointer;
+  float: left;
+}
+/* line 12, ../sass/_modules.sass */
+.objButton p {
+  font-size: 0.4em;
+}
+
+/* line 15, ../sass/_modules.sass */
+.add {
+  left: calc(40% - 40px);
+  position: absolute;
+}
+
+/* line 19, ../sass/_modules.sass */
+.new {
+  font-size: 1rem;
+}
+
+/* line 22, ../sass/_modules.sass */
+.source {
+  background-color: #34495e;
+  top: 10%;
+}
+
+/* line 26, ../sass/_modules.sass */
+#newSourceDialog {
+  background-color: #34495e;
+  color: white;
+}
+
+/* line 30, ../sass/_modules.sass */
+.operator {
+  background-color: #3498db;
+  top: 40%;
+}
+
+/* line 34, ../sass/_modules.sass */
+#newOperatorDialog {
+  background-color: #3498db;
+  color: white;
+}
+
+/* line 38, ../sass/_modules.sass */
+.viz {
+  background-color: #9b59b6;
+  top: 70%;
+}
+
+/* line 42, ../sass/_modules.sass */
+#newVizDialog {
+  background-color: #9b59b6;
+  color: white;
+}
+
+/* line 46, ../sass/_modules.sass */
+.dialog {
+  width: 300px;
+  height: 300px;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: white;
+  display: none;
+}
+
+/* line 54, ../sass/_modules.sass */
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
