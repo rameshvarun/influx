@@ -110,3 +110,11 @@ function showScatter() {
 	$('#content').append(chart.type.render(chart));
 	chart.type.postrender(chart);
 }
+
+function showArea() {
+	chart = newElement(AREACHART);
+	chart.inputs.table = element;
+	
+	$('#content').append(chart.type.render(chart));
+	chart.type.postrender(chart);
+}
