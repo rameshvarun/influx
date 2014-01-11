@@ -13,7 +13,7 @@ var render_error = "<table style='width:100%; height:100%; '><tbody><tr><td styl
 $('.type_selector').each( function() {
 	var types = getTypesWithTag( $(this).attr('element_type') );
 	$(this).select2( {
-		data : types,
+		data : { results: types, text: 'displayname' },
 		formatSelection: formatElement,
 		formatResult: formatElement
 	} );
