@@ -7,6 +7,13 @@ var maxed = false
     , $window = $(window)
     , $table_editor = $('#table_editor');
 
+var calculateSize = function () {
+    var offset = $example1.offset();
+    availableWidth = $window.width() - offset.left + $window.scrollLeft();
+    availableHeight = $window.height() - offset.top + $window.scrollTop();
+};
+$window.on('resize', calculateSize);
+
 //Table source
 TABLE = {
 	"id" : 'table',
@@ -42,12 +49,27 @@ TABLE = {
 		$("#type_select").select2();
 		$('#table_editor').handsontable({
 			data : obj.data,
-			minRows: 2,
-			minCols: 2,
+			rowHeaders: true,
+			colHeaders: true,
+			minRows: 1000,
+			minCols: 26,
 			minSpareCols : 1,
 			minSpareRows : 1,
+			stretchH: 'all',
 			colHeaders: true,
 			contextMenu: true,
+			width: function () {
+		        if (maxed && availableWidth === void 0) {
+		            calculateSize();
+		        }
+		        return maxed ? availableWidth : 400;
+		    },
+		    height: function () {
+		        if (maxed && availableHeight === void 0) {
+		            calculateSize();
+		        }
+		        return maxed ? availableHeight : 300;
+		    },
 			afterChange: function (change, source) {
 				obj.data = JSON.parse(JSON.stringify($('#table_editor').data('handsontable').getData()));
 				
