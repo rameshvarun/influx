@@ -1,6 +1,6 @@
 //Global element manipulation
 
-ELEMENT_TYPES = [TABLE, PIECHART, BARCHART, COLUMNCHART, LINECHART] //Stores all the element types (essentially the classes)
+ELEMENT_TYPES = [TABLE, PIECHART, BARCHART, COLUMNCHART, LINECHART, SCATTERCHART] //Stores all the element types (essentially the classes)
 elements = [] //Stores a list of the actual elements
 
 function getElement(id) {
@@ -97,6 +97,14 @@ function showColumn() {
 
 function showLine() {
 	chart = newElement(LINECHART);
+	chart.inputs.table = element;
+	
+	$('#content').append(chart.type.render(chart));
+	chart.type.postrender(chart);
+}
+
+function showScatter() {
+	chart = newElement(SCATTERCHART);
 	chart.inputs.table = element;
 	
 	$('#content').append(chart.type.render(chart));
