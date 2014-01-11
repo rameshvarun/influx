@@ -3,6 +3,14 @@
 ELEMENT_TYPES = [TABLE, PIECHART, BARCHART, COLUMNCHART, LINECHART] //Stores all the element types (essentially the classes)
 elements = [] //Stores a list of the actual elements
 
+function getElement(id) {
+	for(var i = 0; i < elements.length; ++i) {
+		if(elements[i].id == id) {
+			return elements[i];
+		}
+	}
+}
+
 function getTypesWithTag(tag) {
 	var types = [];
 	for(var i = 0; i < ELEMENT_TYPES.length; ++i) {
