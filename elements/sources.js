@@ -36,12 +36,27 @@ TABLE = {
 			data : obj.data,
 			minRows: 2,
 			minCols: 2,
-			minSpareCols : 2,
-			minSpareRows : 2,
+			minSpareCols : 1,
+			minSpareRows : 1,
 			colHeaders: true,
 			contextMenu: true,
 			afterChange: function (change, source) {
 				obj.data = $('#table_editor').data('handsontable').getData();
+				
+				for(var row = 0; row < obj.data.length; ++row) {
+					var count = 0;
+					for(var col = 0; col < obj.data[row].length; ++col) {
+						if( obj.data[row][col] != null )
+							++count;
+						if( obj.data[row][col] == null ) {
+							obj.data[row].splice(col, 1);
+							--col;
+						}
+					}
+					if(count == 0) {
+						obj.data.splice(row, 1);
+					}
+				}
 			}
 		});
 	},
