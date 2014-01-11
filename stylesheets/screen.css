@@ -118,7 +118,5 @@ html, body {
 }
 
 #table_editor {
-  padding-top: 64px;
-  padding-left: 64px;
   overflow: scroll;
 }

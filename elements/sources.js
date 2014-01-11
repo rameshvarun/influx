@@ -33,20 +33,12 @@ TABLE = {
 	"render" : function(obj) {
 		html = "<div>";
 		
-		html += "<select id='type_select'>";
-		html += "<option>Table Editor</option>";
-		html += "<option>CSV</option>";
-		html += "<option>Excel File</option>";
-		html += "<option>Google Docs</option>";
-		html += "</select><br><br>";
-		
 		html += "<div id='table_editor' class='handsontable'></div>"
 		
 		html += "</div>";
 		return html;
 	},
 	"postrender" : function(obj) {
-		$("#type_select").select2();
 		$('#table_editor').handsontable({
 			data : obj.data,
 			rowHeaders: true,
@@ -58,18 +50,8 @@ TABLE = {
 			stretchH: 'all',
 			colHeaders: true,
 			contextMenu: true,
-			width: function () {
-		        if (maxed && availableWidth === void 0) {
-		            calculateSize();
-		        }
-		        return maxed ? availableWidth : 400;
-		    },
-		    height: function () {
-		        if (maxed && availableHeight === void 0) {
-		            calculateSize();
-		        }
-		        return maxed ? availableHeight : 300;
-		    },
+			width: $('#preview').width(),
+		    height: $('#preview').height(),
 			afterChange: function (change, source) {
 				obj.data = JSON.parse(JSON.stringify($('#table_editor').data('handsontable').getData()));
 				
