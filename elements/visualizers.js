@@ -101,7 +101,13 @@ VIDEOENGAGEMENT = {
 	"deserialize" : function(obj) {
 	},
 	"render" : function(obj) {
-		return "<div><input id='video_id' type='text'></input><br><div id='ytplayer'></div><br><div id='timeline' width='640px'></div>";
+		html = "<table style='width:100%;'><tbody>";
+		html += "<tr><td style='text-align:center;color:rgb(0,0,0); '><br><br><br><br>Enter Video ID: <input id='video_id' type='text'></input></td></tr>";
+		html += "<tr><td style='text-align:center; vertical-align:middle'><center><div id='ytplayer'></div></center></td></tr>";
+		html += "<tr><td style='text-align:center; vertical-align:middle'><center><div style='position:relative;width:640px;height:10px;' id='timeline' ></center></td></tr>";
+		html += "</tbody></table>";
+		
+		return html;
 	},
 	"postrender" : function(obj) {
 		$('#video_id').val(obj.videoid);
@@ -126,7 +132,7 @@ VIDEOENGAGEMENT = {
 		});
 		
 		for(var i = 1; i < array.length; ++i) {
-			$("#timeline").append('<div title="' + array[i][0] + '" style="position:absolute; left:' + array[i][1]*640/100 + 'px;">|</div>');
+			$("#timeline").append('<div title="' + array[i][0] + '" style="position:absolute; color:rgb(0,0,0); left:' + (array[i][1]*640.0/100) + 'px;">|</div>');
 		}
 	}
 }
