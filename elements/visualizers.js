@@ -385,3 +385,40 @@ GOOGLEMAPS = {
 		map.fitBounds(bounds);
 	}
 }
+
+IMAGEVIEW = {
+	"displayname" : "Image Viewer",
+	"id" : 'imageview',
+	"tags" : ["visualizer"],
+	"inputs" : [{
+		"name" : "image",
+		"type" : "image"
+	}],
+	"output" : null,
+	"initialize" : function(obj) {
+	},
+	"serialize" : function(obj) {
+	},
+	"deserialize" : function(obj) {
+	},
+	"render" : function(obj) {
+		return "<canvas id='image_preview' ></canvas>";
+	},
+	"postrender" : function(obj) {
+		var image = getElement(obj.inputs.image);
+		image.type.get(image, function(dataurl) {
+			var image_preview = document.getElementById('image_preview');
+			var image_context = image_preview.getContext('2d');
+		
+			var imageObj = new Image();
+			imageObj.onload = function() {
+				image_preview.width = imageObj.width;
+				image_preview.height = imageObj.height;
+				image_preview.style.width = imageObj.width;
+				image_preview.style.height = imageObj.height; 
+				image_context.drawImage(imageObj, 0, 0);
+			};
+			imageObj.src = dataurl;
+		} );
+	}
+}

@@ -138,5 +138,18 @@ IMAGE = {
 		});
 	},
 	"get" : function(obj, result) {
+		var image_preview = document.createElement('canvas');
+		var image_context = image_preview.getContext('2d');
+		
+		var imageObj = new Image();
+		imageObj.onload = function() {
+			image_preview.width = imageObj.width;
+			image_preview.height = imageObj.height;
+			image_preview.style.width = imageObj.width;
+			image_preview.style.height = imageObj.height; 
+			image_context.drawImage(imageObj, 0, 0);
+			result( image_preview.toDataURL() );
+		};
+		imageObj.src = obj.url;
 	}
 }
