@@ -377,6 +377,45 @@ CANDLESTICKCHART = {
 	}
 }
 
+HISTOGRAM = {
+	"displayname" : "Histogram",
+	"id" : 'candlechart',
+	"tags" : ["visualizer"],
+	"inputs" : [{
+		"name" : "table",
+		"type" : "table"
+	}],
+	"output" : null,
+	"initialize" : function(obj) {
+	},
+	"serialize" : function(obj) {
+	},
+	"deserialize" : function(obj) {
+	},
+	"render" : function(obj) {
+		return chart_code;
+	},
+	"postrender" : function(obj) {
+		//Get data array
+		var table = getElement(obj.inputs.table);
+		var array = table.type.get(table);
+
+		//Create the data table
+		var data = new google.visualization.arrayToDataTable(array, true);
+		
+		// Set chart options
+        var options = {
+			'title': obj.name,
+            'width': $('#preview').width(),
+            'height': $('#preview').height()
+		};
+		
+		// Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
+        chart.draw(data, options);
+	}
+}
+
 GOOGLEMAPS = {
 	"displayname" : "Google Maps",
 	"id" : 'googlemaps',
