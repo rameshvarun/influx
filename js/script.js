@@ -30,6 +30,26 @@ function newSource() {
 	if (sCount == 3) {
 		$("#newSource").hide();
 	};
+	
+
+	
+	// Set Attributes
+	$("#s" + sCount ).click(function(){
+		$( "#sourceDialog" + sCount).dialog({
+			width: 250,
+			dialogClass: "no-close",
+			position: { my: "left top", at: "right+50 top-20", of: $("#s" + sCount)},
+			buttons: [
+			{
+				text: "OK",
+				click: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+			]
+		});
+	})
+
 }
 
 
@@ -87,25 +107,6 @@ function newViz() {
 	};
 }
 
-// Set Attributes
-$(".new").click(function(){
-	console.log($(this).attr("count"));
-	var count;
-	$( "#sourceDialog" + count).dialog({
-		width: 250,
-		dialogClass: "no-close",
-		position: { my: "left top", at: "right+50 top-20", of: $("#s" + count)},
-		buttons: [
-		{
-			text: "OK",
-			click: function() {
-				$( this ).dialog( "close" );
-			}
-		}
-		]
-	});
-	$( "#sourceDialog" + count).dialog( "open" );
-})
 
 
 
