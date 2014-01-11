@@ -12,7 +12,7 @@ TIMECOLLAPSE = {
 		"type" : "table"
 	},
 	"initialize" : function(obj) {
-		obj.interval = 15;
+		obj.interval = 60;
 		obj.collapse_type = "average"
 	},
 	"serialize" : function(obj) {
@@ -21,18 +21,65 @@ TIMECOLLAPSE = {
 	},
 	"render" : function(obj) {
 		html = "<div>";
-		
+		html += "Collapsing Technique: <select id='collapse_type'><option value='average'>Average of Sub-Intervals</option><option value='first'>First Sub-Intervals</option><option value='largest'>Largest Sub-Interval</option></select>";
+		html += "Interval Time: <input type='text' id='interval_time'></input>";
 		html += "</div>";
 		return html;
 	},
 	"postrender" : function(obj) {
+		function change() {
+			obj.collapse_type = $("#collapse_type").val();
+			obj.interval = parseInt($("#interval_time").val());
+			updateDB();
+			if (TogetherJS.running)
+				TogetherJS.send({ type : "update_element", obj : obj });
+		}
+		
+		$("#collapse_type").select2();
+		$("#collapse_type").select2('val', obj.collapse_type)
+		$("#collapse_type").on("change", change);
+		
+		$("#interval_time").val(obj.interval);
+		$("#interval_time").on("change", change);
 	},
 	"get" : function(obj) {
 		//Get data array
 		var table = getElement(obj.inputs.table);
 		var array = table.type.get(table);
 		
-		return array;
+		var newarray = [ array[0] ];
+		var i = 0;
+		while(true) {
+			var sub_intervals = [];
+			for(var j = 1; j < array.length; ++j) {
+				if(array[j][0] >= i*obj.interval && array[j][0] < (i+1)*obj.interval)
+					sub_intervals.push( array[j] );
+			}
+			if(sub_intervals.length < 1)
+				break;
+			
+			if(obj.collapse_type == "first")
+				newarray.push( [ i*obj.interval, sub_intervals[0][1]] );
+			if(obj.collapse_type == "average") {
+				var sum = 0;
+				$.each(sub_intervals, function(index, value) {
+					sum += value[1];
+				});
+				newarray.push( [i*obj.interval, sum/sub_intervals.length] );
+			}
+			if(obj.collapse_type == "largest") {
+				var max = null;
+				$.each(sub_intervals, function(index, value) {
+					if(max == null || value[1] > max)
+						max = value[1];
+				});
+				newarray.push( [i*obj.interval, max] );
+			}
+			
+			++i;
+		}
+		
+		return newarray;
 	}
 }
 
