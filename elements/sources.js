@@ -8,7 +8,7 @@ var maxed = false
     , $table_editor = $('#table_editor');
 
 var calculateSize = function () {
-    var offset = $example1.offset();
+    var offset = $table_editor.offset();
     availableWidth = $window.width() - offset.left + $window.scrollLeft();
     availableHeight = $window.height() - offset.top + $window.scrollTop();
 };
