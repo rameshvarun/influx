@@ -1,6 +1,6 @@
 //Global element manipulation
 
-ELEMENT_TYPES = [TABLE, PIECHART, BARCHART, VIDEOENGAGEMENT, COLUMNCHART, LINECHART, SCATTERCHART, AREACHART, CANDLESTICKCHART, GOOGLEMAPS] //Stores all the element types (essentially the classes)
+ELEMENT_TYPES = [TABLE, PIECHART, BARCHART, VIDEOENGAGEMENT, COLUMNCHART, LINECHART, SCATTERCHART, AREACHART, CANDLESTICKCHART, GOOGLEMAPS, TIMECOLLAPSE] //Stores all the element types (essentially the classes)
 elements = [] //Stores a list of the actual elements
 
 function getElement(id) {

@@ -216,6 +216,13 @@ TogetherJS.hub.on('newviz', function (msg) {
 	newViz(element);
 });
 
+//Replicate operator creation
+TogetherJS.hub.on('newoperator', function (msg) {
+	var element = msg.element;
+	element.type = getTypeById(element.type.id);
+	newOperator(element);
+});
+
 //Element has its name changed
 TogetherJS.hub.on("change_name", function (msg) {
 	$(msg.div).html( msg.new_name );
@@ -233,6 +240,149 @@ TogetherJS.hub.on('update_element', function (msg) {
 	}
 	drawConnections();
 });
+
+//Operators
+$("#newOperator").click(function() {
+	$("#operatorName").val('');
+	$( "#newOperatorDialog" ).dialog({
+		width: 250,
+		dialogClass: "no-close",
+		position: { my: "left top", at: "right+50 top-20", of: $("#newOperator")},
+		buttons: [
+		{
+			text: "OK",
+			click: function() {
+				$( "#newOperatorDialog" ).dialog( "close" );
+				newOperator();
+			}
+		},
+		{
+			text: "CANCEL",
+			click: function() {
+				$( "#newOperatorDialog" ).dialog( "close" );
+			}
+		}
+		]
+	});
+})
+
+function newOperator(obj) {
+	if(!obj && $('#operatorType').val().length < 1)
+		return;
+		
+	oCount += 1;
+	
+	var name;
+	var operator_type;
+	var operator_element;
+	
+	if(!obj) {
+		name = 'Operator' + oCount;
+		if( $("#operatorName").val().length > 0 ) {
+			name = $("#operatorName").val();
+		}
+		
+		operator_type = getTypeById($('#operatorType').val());
+		operator_element = newElement(operator_type);
+		operator_element.name = name;
+		
+		//If the operator was created here, tell the other clients in session to replicate this source
+		if (TogetherJS.running) {
+			TogetherJS.send({ type : "newoperator", element : operator_element });
+		}
+	}
+	else {
+		operator_element = obj;
+		operator_type = obj.type;
+		name = operator_element.name;
+	}
+	
+	$("#workArea").prepend('<div data-elementid="' + operator_element.id + '" id="o' + oCount+ '" count="'+ oCount +'"class="new objButton operator" style="left: ' + oLeft + 'px">' + name + '</div><div id="operatorDialog' + oCount + '" class="dialog"><label for="operatorName">Operator Name</label><input value="' + name + '" id="operatorName' + oCount + '" type="text" label="operatorName"></div>')
+	oLeft += 140;
+	if (oCount == 3) {
+		$("#newOperator").hide();
+	};
+	
+	//Create in-boxes
+	var parent = $("#o" + oCount );
+	for(var i = 0; i < operator_type.inputs.length; ++i) {
+		var input = operator_type.inputs[i];
+		
+		var in_box = $('<img class="inbox" src="images/inbox.png"></img>')
+		$("#workArea").prepend(in_box);
+		in_box.attr('data-elementid', operator_element.id );
+		in_box.attr('title', input.name );
+		in_box.attr('data-inputname', input.name );
+		in_box.css("position", "absolute" );
+		in_box.css("width", "20px" );
+		in_box.css("z-index", "5" );
+		var offset = i*30;
+		in_box.css("top", (parent.position().top - 5 + offset) + "px");
+		in_box.css("left", (parent.position().left + 80/2 - 10 ) + "px");
+		
+		in_box.mouseup( in_mouseup );
+	}
+	
+	//Create out_arrow
+	var out_arrow = $('<img class="outarrow" src="images/outarrow.png"></img>')
+	$("#workArea").prepend(out_arrow);
+	out_arrow.attr('title', "Output");
+	out_arrow.attr('data-elementid', operator_element.id );
+	out_arrow.css("position", "absolute" );
+	out_arrow.css("width", "20px" );
+	out_arrow.css("z-index", "5" );
+	out_arrow.css("top", (parent.position().top + 76 ) + "px");
+	out_arrow.css("left", (parent.position().left + 80/2 - 10 ) + "px");
+	
+	out_arrow.mousedown( out_mousedown );
+	
+	// Set Attributes
+	$("#o" + oCount ).dblclick(function(){
+		var count = $(this).attr('count');
+		$( "#operatorDialog" + count).dialog({
+			width: 250,
+			dialogClass: "no-close",
+			position: { my: "left top", at: "right+50 top-20", of: $("#o" + count)},
+			buttons: [
+			{
+				text: "OK",
+				click: function() {
+					$( this ).dialog( "close" );
+					$("#o" + count ).html( $("#operatorName" + count ).val() );
+					operator_element.name = $("#operatorName" + count ).val();
+					
+					//Send changes to clients
+					if (TogetherJS.running) {
+						TogetherJS.send({
+							type : "change_name",
+							new_name : $("#operatorName" + count ).val(),
+							div : "#o" + count,
+							id : operator_element.id
+						});
+					}
+				}
+			},
+			{
+				text: "CANCEL",
+				click: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+			]
+		});
+	})
+	
+	//Preview
+	$("#o" + oCount ).click(function() {
+		try {
+			$('#preview').html(operator_element.type.render(operator_element));
+			operator_element.type.postrender(operator_element);
+		}
+		catch(err) {
+			$('#preview').html(render_error);
+		}
+	});
+}
 
 
 // Visualizers

@@ -14,6 +14,9 @@ if(window.location.hash) {
 				if(element.type.tags[0] == 'visualizer') {
 					newViz(element);
 				}
+				if(element.type.tags[0] == 'operator') {
+					newOperator(element);
+				}
 			}
 			
 			//Redraw connections
