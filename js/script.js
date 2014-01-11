@@ -11,11 +11,13 @@ var render_error = "<table style='width:100%; height:100%; '><tbody><tr><td styl
 
 //Populate type selectors
 $('.type_selector').each( function() {
+	var types = getTypesWithTag( $(this).attr('element_type') );
 	$(this).select2( {
-		data : getTypesWithTag( $(this).attr('element_type') ),
+		data : types,
 		formatSelection: formatElement,
 		formatResult: formatElement
 	} );
+	$(this).select2("val", types[0].id);
 } );
 
 // Sources
