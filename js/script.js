@@ -7,8 +7,6 @@ vLeft = $(window).width()*0.05;
 
 var MAX_ROW_COUNT = 4;
 
-$( document ).tooltip();
-
 var render_error = "<table style='width:100%; height:100%; '><tbody><tr><td style='text-align:center; vertical-align:middle'><h1>Could not render this element.</h1></td></tr></tbody></table>";
 
 //Populate type selectors
@@ -31,7 +29,7 @@ $("#newSource").click(function() {
 		position: { my: "left top", at: "right+50 top-20", of: $("#newSource")},
 		buttons: [
 			{
-				text: "OK",
+				text: "ADD",
 				click: function() {
 					$( "#newSourceDialog" ).dialog( "close" );
 					newSource( );
@@ -171,7 +169,7 @@ function newSource(obj) {
 			position: { my: "left top", at: "right+50 top-20", of: $("#s" + count)},
 			buttons: [
 			{
-				text: "OK",
+				text: "ADD",
 				click: function() {
 					$( this ).dialog( "close" );
 					$("#s" + count ).html( $("#sourceName" + count ).val() );
@@ -252,7 +250,7 @@ $("#newOperator").click(function() {
 		position: { my: "left top", at: "right+50 top-20", of: $("#newOperator")},
 		buttons: [
 		{
-			text: "OK",
+			text: "ADD",
 			click: function() {
 				$( "#newOperatorDialog" ).dialog( "close" );
 				newOperator();
@@ -347,7 +345,7 @@ function newOperator(obj) {
 			position: { my: "left top", at: "right+50 top-20", of: $("#o" + count)},
 			buttons: [
 			{
-				text: "OK",
+				text: "ADD",
 				click: function() {
 					$( this ).dialog( "close" );
 					$("#o" + count ).html( $("#operatorName" + count ).val() );
@@ -396,7 +394,7 @@ $("#newViz").click(function() {
 		position: { my: "left top", at: "right+50 top-20", of: $("#newViz")},
 		buttons: [
 		{
-			text: "OK",
+			text: "ADD",
 			click: function() {
 				$( "#newVizDialog" ).dialog( "close" );
 				newViz();
@@ -479,7 +477,7 @@ function newViz(obj) {
 			position: { my: "left top", at: "right+50 top-20", of: $("#v" + count)},
 			buttons: [
 			{
-				text: "OK",
+				text: "ADD",
 				click: function() {
 					$( this ).dialog( "close" );
 					$("#v" + count ).html( $("#vizName" + count ).val() );
