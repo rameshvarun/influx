@@ -1,3 +1,5 @@
+//Define all sources
+
 TABLE = {
 	"displayname" : "Table",
 	"tags" : ["source"],
