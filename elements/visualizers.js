@@ -1,3 +1,5 @@
+//Define all visualizers
+
 PIECHART = {
 	"displayname" : "Pie Chart",
 	"tags" : ["visualizer"],
