@@ -62,6 +62,8 @@ TABLE = {
 						obj.data.splice(row, 1);
 					}
 				}
+				
+				updateDB();
 			}
 		});
 	},

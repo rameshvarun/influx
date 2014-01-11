@@ -114,6 +114,7 @@ VIDEOENGAGEMENT = {
 			//console.log( );
 			player.loadVideoById( $('#video_id').val() );
 			obj.videoid = $('#video_id').val();
+			updateDB();
 		})
 		
 		player = new YT.Player('ytplayer', {

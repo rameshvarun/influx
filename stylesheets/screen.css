@@ -83,17 +83,6 @@ html, body {
 	box-shadow: 0 0 5px #aaa;
 }
 
-.arrow-out {
-	width: 10px; 
-	height: 10px; 
-	border-left: 20px solid transparent;
-	border-right: 20px solid transparent;
-	border-top: 20px solid #f00;
-	//position: absolute;
-	//cursor: pointer;
-	//float: left;
-}
-
 
 /* line 34, ../sass/_modules.sass */
 #newOperatorDialog {

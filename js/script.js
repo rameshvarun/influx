@@ -61,10 +61,24 @@ function drawCurve(begin, end) {
 	context.stroke();
 }
 
-jQuery.fn.cssNum = function(prop){
-    var v = parseInt(this.css(prop),10);
-    return isNaN(v) ? 0 : v;
-};
+function drawConnections() {
+	context.setTransform(1, 0, 0, 1, 0, 0);
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	
+	for(var i = 0; i < elements.length; ++i) {
+		element = elements[i];
+		for(var j = 0; j < element.type.inputs.length; ++j) {
+			var input_name = element.type.inputs[j].name;
+			var input = element.inputs[input_name];
+			if(input) {
+				var start_div = $(".outarrow").filter('[data-elementid="' + input + '"]');
+				var end_div = $(".inbox").filter('[data-elementid="' + element.id + '"]').filter('[data-inputname="' + input_name + '"]');
+				drawCurve( start_div.position(), end_div.position() );
+			}
+			
+		}
+	}
+}
 
 function out_mousedown() {
 	window.start_elementid = $(this).attr('data-elementid');
@@ -76,25 +90,41 @@ function in_mouseup() {
 	var input_name = $(this).attr('data-inputname');
 	out_element.inputs[input_name] = window.start_elementid;
 	
-	drawCurve( window.start_div.position(), $(this).position() );
+	drawConnections();
 	console.log("Connected two elements.");
+	
+	updateDB();
 }
 
-function newSource() {
+function newSource(obj) {
 	sCount += 1;
-	var name = 'Source' + sCount;
-	if( $("#sourceName").val().length > 0 ) {
-		name = $("#sourceName").val();
+	
+	var name;
+	var source_type;
+	var source_element;
+	
+	if(!obj) {
+		name = 'Source' + sCount;
+		if( $("#sourceName").val().length > 0 ) {
+			name = $("#sourceName").val();
+		}
+		
+		source_type = getTypeById($('#sourceType').val());
+		source_element = newElement(source_type);
+		source_element.name = name;
+	}
+	else {
+		source_element = obj;
+		source_type = obj.type;
+		name = source_element.name;
 	}
 	
-	var source_type = getTypeById($('#sourceType').val());
-	var source_element = newElement(source_type);
-	source_element.name = name;
+
 	
 	$("#workArea").prepend('<div data-elementid="' + source_element.id + '" id="s' + sCount+ '" count="'+ sCount +'"class="new objButton source" style="left: ' + sLeft + 'px">' + name + '</div><div id="sourceDialog' + sCount + '" class="dialog"><label for="sourceName">Source Name</label><input value="' + name + '" id="sourceName' + sCount + '" type="text" label="sourceName"></div>')
 	
 	var parent = $("#s" + sCount );
-	var out_arrow = $('<img src="images/outarrow.png"></img>')
+	var out_arrow = $('<img class="outarrow" src="images/outarrow.png"></img>')
 	$("#workArea").prepend(out_arrow);
 	out_arrow.attr('title', "Output");
 	out_arrow.attr('data-elementid', source_element.id );
@@ -160,16 +190,28 @@ $("#newViz").click(function() {
 })
 
 
-function newViz() {
+function newViz(obj) {
 	vCount += 1;
-	var name = 'Viz' + vCount;
-	if( $("#vizName").val().length > 0 ) {
-		name = $("#vizName").val();
-	}
 	
-	var viz_type = getTypeById($('#vizType').val());
-	var viz_element = newElement(viz_type);
-	viz_element.name = name;
+	var name;
+	var viz_type;
+	var viz_element;
+	
+	if(!obj) {
+		name = 'Viz' + vCount;
+		if( $("#vizName").val().length > 0 ) {
+			name = $("#vizName").val();
+		}
+		
+		viz_type = getTypeById($('#vizType').val());
+		viz_element = newElement(viz_type);
+		viz_element.name = name;
+	}
+	else {
+		viz_element = obj;
+		viz_type = obj.type;
+		name = viz_element.name;
+	}
 	
 	$("#workArea").prepend('<div data-elementid="' + viz_element.id + '" id="v' + vCount+ '" count="'+ vCount +'"class="new objButton viz" style="left: ' + vLeft + 'px">' + name + '</div><div id="vizDialog' + vCount + '" class="dialog"><label for="vizName">Visualization Name</label><input value="' + name + '" id="vizName' + vCount + '" type="text" label="vizName"></div>')
 	vLeft += 140;
@@ -182,7 +224,7 @@ function newViz() {
 	for(var i = 0; i < viz_type.inputs.length; ++i) {
 		var input = viz_type.inputs[i];
 		
-		var in_box = $('<img src="images/inbox.png"></img>')
+		var in_box = $('<img class="inbox" src="images/inbox.png"></img>')
 		$("#workArea").prepend(in_box);
 		in_box.attr('data-elementid', viz_element.id );
 		in_box.attr('title', input.name );
