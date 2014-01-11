@@ -5,6 +5,8 @@ oLeft = $(window).width()*0.05;
 vCount = 0;
 vLeft = $(window).width()*0.05;
 
+var MAX_ROW_COUNT = 4;
+
 $( document ).tooltip();
 
 var render_error = "<table style='width:100%; height:100%; '><tbody><tr><td style='text-align:center; vertical-align:middle'><h1>Could not render this element.</h1></td></tr></tbody></table>";
@@ -156,7 +158,7 @@ function newSource(obj) {
 	out_arrow.mousedown( out_mousedown );
 	
 	sLeft += 140;
-	if (sCount == 3) {
+	if (sCount == MAX_ROW_COUNT) {
 		$("#newSource").hide();
 	};
 	
@@ -299,7 +301,7 @@ function newOperator(obj) {
 	
 	$("#workArea").prepend('<div data-elementid="' + operator_element.id + '" id="o' + oCount+ '" count="'+ oCount +'"class="new objButton operator" style="left: ' + oLeft + 'px">' + name + '</div><div id="operatorDialog' + oCount + '" class="dialog"><label for="operatorName">Operator Name</label><input value="' + name + '" id="operatorName' + oCount + '" type="text" label="operatorName"></div>')
 	oLeft += 140;
-	if (oCount == 3) {
+	if (oCount == MAX_ROW_COUNT) {
 		$("#newOperator").hide();
 	};
 	
@@ -444,7 +446,7 @@ function newViz(obj) {
 	
 	$("#workArea").prepend('<div data-elementid="' + viz_element.id + '" id="v' + vCount+ '" count="'+ vCount +'"class="new objButton viz" style="left: ' + vLeft + 'px">' + name + '</div><div id="vizDialog' + vCount + '" class="dialog"><label for="vizName">Visualization Name</label><input value="' + name + '" id="vizName' + vCount + '" type="text" label="vizName"></div>')
 	vLeft += 140;
-	if (vCount == 3) {
+	if (vCount == MAX_ROW_COUNT) {
 		$("#newViz").hide();
 	};
 	
