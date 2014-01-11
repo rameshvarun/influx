@@ -240,3 +240,59 @@ IMAGESHARPEN = {
 		} );
 	}
 }
+
+COLORPROFILE = {
+	"id" : 'colorprofile',
+	"displayname" : "RGB Profile",
+	"tags" : ["operator"],
+	"inputs" : [{
+		"name" : "image",
+		"type" : "image"
+	}],
+	"output" : {
+		"type" : "table"
+	},
+	"initialize" : function(obj) {
+	},
+	"serialize" : function(obj) {
+	},
+	"deserialize" : function(obj) {
+	},
+	"render" : function(obj) {
+		return "";
+	},
+	"postrender" : function(obj) {
+	},
+	"getasync" : function(obj, result) {
+		var profile = [ ['Color', 'Prevalence'], ['Red', 0], ['Green', 0], ['Blue', 0] ]
+		var image = getElement(obj.inputs.image);
+		image.type.get(image, function(dataurl) {
+			var image_preview = document.createElement('canvas');
+			var image_context = image_preview.getContext('2d');
+		
+			var imageObj = new Image();
+			imageObj.onload = function() {
+				image_preview.width = imageObj.width;
+				image_preview.height = imageObj.height;
+				image_preview.style.width = imageObj.width;
+				image_preview.style.height = imageObj.height; 
+				image_context.drawImage(imageObj, 0, 0);
+				
+				var imageData = image_context.getImageData(0, 0, imageObj.width, imageObj.height);
+				var data = imageData.data;
+
+				for(var i = 0; i < data.length; i += 4) {
+				  profile[1][1] += data[i];
+				  profile[2][1] += data[i + 1];
+				  profile[3][1] += data[i + 2];
+				}
+
+				// overwrite original image
+				image_context.putImageData(imageData, 0, 0);
+				
+				result( profile );
+			};
+			imageObj.src = dataurl;
+		} );
+	}
+}

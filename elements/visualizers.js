@@ -24,24 +24,48 @@ PIECHART = {
 		
 		//Get data array
 		var table = getElement(obj.inputs.table);
-		var array = table.type.get(table);
-		data.addColumn('string', array[0][0]);
-		data.addColumn('number', array[0][1]);
 		
-		for(var i = 1; i < array.length; ++i) {
-			data.addRow( [  array[i][0], parseFloat(array[i][1])  ] );
+		if(table.type.get) {
+			var array = table.type.get(table);
+			data.addColumn('string', array[0][0]);
+			data.addColumn('number', array[0][1]);
+			
+			for(var i = 1; i < array.length; ++i) {
+				data.addRow( [  array[i][0], parseFloat(array[i][1])  ] );
+			}
+			
+			// Set chart options
+			var options = {
+				'title': obj.name,
+				'width': $('#preview').width(),
+				'height': $('#preview').height()
+			};
+			
+			// Instantiate and draw our chart, passing in some options.
+			var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+			chart.draw(data, options);
 		}
-		
-		// Set chart options
-        var options = {
-			'title': obj.name,
-            'width': $('#preview').width(),
-            'height': $('#preview').height()
-		};
-		
-		// Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+		else {
+			table.type.getasync(table, function(array) {
+				data.addColumn('string', array[0][0]);
+				data.addColumn('number', array[0][1]);
+				
+				for(var i = 1; i < array.length; ++i) {
+					data.addRow( [  array[i][0], parseFloat(array[i][1])  ] );
+				}
+				
+				// Set chart options
+				var options = {
+					'title': obj.name,
+					'width': $('#preview').width(),
+					'height': $('#preview').height()
+				};
+				
+				// Instantiate and draw our chart, passing in some options.
+				var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+				chart.draw(data, options);
+			});
+		}
 	}
 }
 
@@ -66,21 +90,41 @@ BARCHART = {
 	"postrender" : function(obj) {
 		//Get data array
 		var table = getElement(obj.inputs.table);
-		var array = table.type.get(table);
+		
+		if(table.type.get) {
+			var array = table.type.get(table);
 
-		//Create the data table
-		var data = new google.visualization.arrayToDataTable(array);
-		
-		// Set chart options
-        var options = {
-			'title': obj.name,
-            'width': $('#preview').width(),
-            'height': $('#preview').height()
-		};
-		
-		// Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+			//Create the data table
+			var data = new google.visualization.arrayToDataTable(array);
+			
+			// Set chart options
+			var options = {
+				'title': obj.name,
+				'width': $('#preview').width(),
+				'height': $('#preview').height()
+			};
+			
+			// Instantiate and draw our chart, passing in some options.
+			var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+			chart.draw(data, options);
+		}
+		else {
+			table.type.getasync(table, function(array) {
+				//Create the data table
+				var data = new google.visualization.arrayToDataTable(array);
+				
+				// Set chart options
+				var options = {
+					'title': obj.name,
+					'width': $('#preview').width(),
+					'height': $('#preview').height()
+				};
+				
+				// Instantiate and draw our chart, passing in some options.
+				var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+				chart.draw(data, options);
+			});
+		}
 	}
 }
 
