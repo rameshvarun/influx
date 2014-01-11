@@ -36,8 +36,8 @@ TABLE = {
 			data : obj.data,
 			minRows: 2,
 			minCols: 2,
-			//minSpareCols : 2,
-			//minSpareRows : 2,
+			minSpareCols : 2,
+			minSpareRows : 2,
 			colHeaders: true,
 			contextMenu: true,
 			afterChange: function (change, source) {

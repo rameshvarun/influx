@@ -47,6 +47,7 @@ function newElement(type) {
 	obj = {
 		type : type,
 		name : "",
+		inputs : {},
 		id : makeid(),
 		x : 0,
 		y : 0
@@ -61,3 +62,11 @@ $(function() {
 	$('#content').html(element.type.render(element));
 	element.type.postrender(element)
 })
+
+function showPie() {
+	pie = newElement(PIECHART);
+	pie.inputs.table = element;
+	
+	$('#content').append(pie.type.render(pie));
+	pie.type.postrender(pie)
+}
