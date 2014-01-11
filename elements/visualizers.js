@@ -1,5 +1,5 @@
 //Define all visualizers
-
+var chart_code =  "<table style='width:100%; height:100%; '><tbody><tr><td style='text-align:center; vertical-align:middle'><center><div id='chart_div'></div></center></td></tr></tbody></table>";
 PIECHART = {
 	"displayname" : "Pie Chart",
 	"id" : 'piechart',
@@ -16,14 +16,15 @@ PIECHART = {
 	"deserialize" : function(obj) {
 	},
 	"render" : function(obj) {
-		return "<div><div id='chart_div'></div></div>";
+		return chart_code;
 	},
 	"postrender" : function(obj) {
 		//Create the data table
 		var data = new google.visualization.DataTable();
 		
 		//Get data array
-		var array = obj.inputs.table.type.get(obj.inputs.table);
+		var table = getElement(obj.inputs.table);
+		var array = table.type.get(table);
 		data.addColumn('string', array[0][0]);
 		data.addColumn('number', array[0][1]);
 		
@@ -60,11 +61,12 @@ BARCHART = {
 	"deserialize" : function(obj) {
 	},
 	"render" : function(obj) {
-		return "<div><div id='chart_div'></div></div>";
+		return chart_code;
 	},
 	"postrender" : function(obj) {
 		//Get data array
-		var array = obj.inputs.table.type.get(obj.inputs.table);
+		var table = getElement(obj.inputs.table);
+		var array = table.type.get(table);
 
 		//Create the data table
 		var data = new google.visualization.arrayToDataTable(array);
@@ -92,6 +94,7 @@ VIDEOENGAGEMENT = {
 	}],
 	"output" : null,
 	"initialize" : function(obj) {
+		obj.videoid = "";
 	},
 	"serialize" : function(obj) {
 	},
@@ -101,12 +104,16 @@ VIDEOENGAGEMENT = {
 		return "<div><input id='video_id' type='text'></input><br><div id='ytplayer'></div><br><div id='timeline' width='640px'></div>";
 	},
 	"postrender" : function(obj) {
+		$('#video_id').val(obj.videoid);
+		
 		//Get data array
-		var array = obj.inputs.table.type.get(obj.inputs.table);
+		var table = getElement(obj.inputs.table);
+		var array = table.type.get(table);
 
 		$('#video_id').change(function() {
 			//console.log( );
 			player.loadVideoById( $('#video_id').val() );
+			obj.videoid = $('#video_id').val();
 		})
 		
 		player = new YT.Player('ytplayer', {
@@ -137,11 +144,12 @@ COLUMNCHART = {
 	"deserialize" : function(obj) {
 	},
 	"render" : function(obj) {
-		return "<div><div id='chart_div'></div></div>";
+		return chart_code;
 	},
 	"postrender" : function(obj) {
 		//Get data array
-		var array = obj.inputs.table.type.get(obj.inputs.table);
+		var table = getElement(obj.inputs.table);
+		var array = table.type.get(table);
 
 		//Create the data table
 		var data = new google.visualization.arrayToDataTable(array);
@@ -175,11 +183,12 @@ LINECHART = {
 	"deserialize" : function(obj) {
 	},
 	"render" : function(obj) {
-		return "<div><div id='chart_div'></div></div>";
+		return chart_code;
 	},
 	"postrender" : function(obj) {
 		//Get data array
-		var array = obj.inputs.table.type.get(obj.inputs.table);
+		var table = getElement(obj.inputs.table);
+		var array = table.type.get(table);
 
 		//Create the data table
 		var data = new google.visualization.arrayToDataTable(array);
@@ -213,11 +222,12 @@ SCATTERCHART = {
 	"deserialize" : function(obj) {
 	},
 	"render" : function(obj) {
-		return "<div><div id='chart_div'></div></div>";
+		return chart_code;
 	},
 	"postrender" : function(obj) {
 		//Get data array
-		var array = obj.inputs.table.type.get(obj.inputs.table);
+		var table = getElement(obj.inputs.table);
+		var array = table.type.get(table);
 
 		//Create the data table
 		var data = new google.visualization.arrayToDataTable(array);
@@ -251,11 +261,12 @@ AREACHART = {
 	"deserialize" : function(obj) {
 	},
 	"render" : function(obj) {
-		return "<div><div id='chart_div'></div></div>";
+		return chart_code;
 	},
 	"postrender" : function(obj) {
 		//Get data array
-		var array = obj.inputs.table.type.get(obj.inputs.table);
+		var table = getElement(obj.inputs.table);
+		var array = table.type.get(table);
 
 		//Create the data table
 		var data = new google.visualization.arrayToDataTable(array);
@@ -289,11 +300,12 @@ CANDLESTICKCHART = {
 	"deserialize" : function(obj) {
 	},
 	"render" : function(obj) {
-		return "<div><div id='chart_div'></div></div>";
+		return chart_code;
 	},
 	"postrender" : function(obj) {
 		//Get data array
-		var array = obj.inputs.table.type.get(obj.inputs.table);
+		var table = getElement(obj.inputs.table);
+		var array = table.type.get(table);
 
 		//Create the data table
 		var data = new google.visualization.arrayToDataTable(array, true);
@@ -331,7 +343,8 @@ GOOGLEMAPS = {
 	},
 	"postrender" : function(obj) {
 		//Get data array
-		var array = obj.inputs.table.type.get(obj.inputs.table);
+		var table = getElement(obj.inputs.table);
+		var array = table.type.get(table);
 		
 		var mapOptions = {
 			center: new google.maps.LatLng(-34.397, 150.644),

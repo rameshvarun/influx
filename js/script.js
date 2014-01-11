@@ -7,7 +7,7 @@ vLeft = $(window).width()*0.05;
 
 $( document ).tooltip();
 
-var render_error = "<h1>Could not render this element.</h1>";
+var render_error = "<table style='width:100%; height:100%; '><tbody><tr><td style='text-align:center; vertical-align:middle'><h1>Could not render this element.</h1></td></tr></tbody></table>";
 
 //Populate type selectors
 $('.type_selector').each( function() {
@@ -45,10 +45,15 @@ canvas.width  = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 	
 function drawCurve(begin, end) {
-
+	begin.left = begin.left + 10;
+	begin.top = begin.top - 42;
+	end.left = end.left + 10;
+	end.top = end.top - 42;
+	
 	context.beginPath();
-	context.moveTo(begin.left+10, begin.top - 22 - 20);
-	context.lineTo(end.left+10, end.top - 22 - 20);
+	context.moveTo(begin.left, begin.top );
+	//context.lineTo(end.left+10, end.top - 22 - 20);
+	context.bezierCurveTo(begin.left, begin.top + 100, end.left, end.top - 100, end.left, end.top);
 	context.lineWidth = 5;
 
 	// line color
@@ -65,11 +70,11 @@ function out_mousedown() {
 	window.start_elementid = $(this).attr('data-elementid');
 	window.start_div = $(this);
 }
+
 function in_mouseup() {
-	var in_element = getElement(window.start_elementid);
 	var out_element = getElement($(this).attr('data-elementid'));
 	var input_name = $(this).attr('data-inputname');
-	out_element.inputs[input_name] = in_element;
+	out_element.inputs[input_name] = window.start_elementid;
 	
 	drawCurve( window.start_div.position(), $(this).position() );
 	console.log("Connected two elements.");
