@@ -35,8 +35,8 @@ PIECHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 800,
-            'height':600
+            'width': $('#preview').width(),
+            'height': $('#preview').height()
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
@@ -74,8 +74,8 @@ BARCHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 800,
-            'height':600
+            'width': $('#preview').width(),
+            'height': $('#preview').height()
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
@@ -160,8 +160,8 @@ COLUMNCHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 800,
-            'height':600
+            'width': $('#preview').width(),
+            'height': $('#preview').height()
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
@@ -199,8 +199,8 @@ LINECHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 800,
-            'height':600
+            'width': $('#preview').width(),
+            'height': $('#preview').height()
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
@@ -238,8 +238,8 @@ SCATTERCHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 800,
-            'height':600
+            'width': $('#preview').width(),
+            'height': $('#preview').height()
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
@@ -277,8 +277,8 @@ AREACHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 800,
-            'height':600
+            'width': $('#preview').width(),
+            'height': $('#preview').height()
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
@@ -316,8 +316,8 @@ CANDLESTICKCHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 800,
-            'height':600
+            'width': $('#preview').width(),
+            'height': $('#preview').height()
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
