@@ -67,10 +67,6 @@ BARCHART = {
 		//Create the data table
 		var data = new google.visualization.arrayToDataTable(array);
 		
-		for(var i = 1; i < array.length; ++i) {
-			data.addRow( [  array[i][0], parseFloat(array[i][1])  ] );
-		}
-		
 		// Set chart options
         var options = {
 			'title': obj.name,

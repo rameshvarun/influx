@@ -41,13 +41,17 @@ TABLE = {
 			colHeaders: true,
 			contextMenu: true,
 			afterChange: function (change, source) {
-				obj.data = $('#table_editor').data('handsontable').getData();
+				obj.data = JSON.parse(JSON.stringify($('#table_editor').data('handsontable').getData()));
 				
 				for(var row = 0; row < obj.data.length; ++row) {
 					var count = 0;
 					for(var col = 0; col < obj.data[row].length; ++col) {
-						if( obj.data[row][col] != null )
+						if( obj.data[row][col] != null ) {
 							++count;
+							if( !isNaN(parseFloat(obj.data[row][col])) ) {
+								obj.data[row][col] = parseFloat(obj.data[row][col]);
+							}
+						}
 						if( obj.data[row][col] == null ) {
 							obj.data[row].splice(col, 1);
 							--col;
