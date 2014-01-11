@@ -349,6 +349,10 @@ GOOGLEMAPS = {
 		var table = getElement(obj.inputs.table);
 		var array = table.type.get(table);
 		
+		//Size div to full preview area
+		$('#map-canvas').width($('#preview').width());
+		$('#map-canvas').height($('#preview').height());
+		
 		var mapOptions = {
 			center: new google.maps.LatLng(-34.397, 150.644),
 			zoom: 8,
