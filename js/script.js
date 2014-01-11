@@ -47,10 +47,6 @@ $("#newSource").click(function() {
 
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
-canvas.style.width ='100%';
-canvas.style.height='100%';
-canvas.width  = canvas.offsetWidth;
-canvas.height = canvas.offsetHeight;
 	
 function drawCurve(begin, end) {
 	begin.left = begin.left + 10;
@@ -70,6 +66,11 @@ function drawCurve(begin, end) {
 }
 
 function drawConnections() {
+	canvas.style.width ='100%';
+	canvas.style.height='100%';
+	canvas.width  = canvas.offsetWidth;
+	canvas.height = canvas.offsetHeight;
+	
 	context.setTransform(1, 0, 0, 1, 0, 0);
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	
@@ -87,6 +88,7 @@ function drawConnections() {
 		}
 	}
 }
+window.addEventListener("resize", drawConnections);
 
 function out_mousedown() {
 	window.start_elementid = $(this).attr('data-elementid');
