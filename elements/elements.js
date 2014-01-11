@@ -1,6 +1,6 @@
 //Global element manipulation
 
-ELEMENT_TYPES = [TABLE, PIECHART, BARCHART] //Stores all the element types (essentially the classes)
+ELEMENT_TYPES = [TABLE, PIECHART, BARCHART, COLUMNCHART, LINECHART] //Stores all the element types (essentially the classes)
 elements = [] //Stores a list of the actual elements
 
 function getTypesWithTag(tag) {
@@ -73,6 +73,22 @@ function showPie() {
 
 function showBar() {
 	chart = newElement(BARCHART);
+	chart.inputs.table = element;
+	
+	$('#content').append(chart.type.render(chart));
+	chart.type.postrender(chart);
+}
+
+function showColumn() {
+	chart = newElement(COLUMNCHART);
+	chart.inputs.table = element;
+	
+	$('#content').append(chart.type.render(chart));
+	chart.type.postrender(chart);
+}
+
+function showLine() {
+	chart = newElement(LINECHART);
 	chart.inputs.table = element;
 	
 	$('#content').append(chart.type.render(chart));
