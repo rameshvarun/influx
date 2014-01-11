@@ -74,3 +74,42 @@ TABLE = {
 		return obj.data;
 	}
 }
+
+IMAGE = {
+	"id" : 'image',
+	"displayname" : "Image",
+	"tags" : ["source"],
+	"inputs" : [],
+	"output" : {
+		"type" : "image"
+	},
+	"initialize" : function(obj) {
+		obj.url = "";
+	},
+	"serialize" : function(obj) {
+	},
+	"deserialize" : function(obj) {
+	},
+	"render" : function(obj) {
+		html = "<table style='width:100%;height:100%;'><tbody>";
+		html += "<tr><td style='text-align:center;color:rgb(0,0,0); '><br><br><br><br>Enter Image URL: <input id='image_url' type='text'></input></td></tr>";
+		html += "<tr><td style='text-align:center; vertical-align:middle'><center><img id='image_container' src='" + obj.url + "'></img></center></td></tr>";
+		html += "</tbody></table>";
+		
+		return html;
+	},
+	"postrender" : function(obj) {
+		$('#image_url').val(obj.url);
+		
+		$('#image_url').change(function() {
+			$('#image_container').attr('src', $('#image_url').val() );
+			obj.url = $('#image_url').val();
+			updateDB();
+			if (TogetherJS.running)
+				TogetherJS.send({ type : "update_element", obj : obj });
+		});
+	},
+	"get" : function(obj) {
+		return "";
+	}
+}
