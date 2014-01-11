@@ -176,8 +176,9 @@ VIDEOENGAGEMENT = {
 		});
 		
 		for(var i = 1; i < array.length; ++i) {
-			$("#timeline").append('<div title="' + array[i][0] + '" style="position:absolute; color:rgb(0,0,0); left:' + (array[i][1]*640.0/100) + 'px;">|</div>');
+			$("#timeline").append('<div class="posmarker" title="' + array[i][0] + '" style="font-size:250%;position:absolute; color:rgb(0,0,0); left:' + (array[i][1]*640.0/100) + 'px;">|</div>');
 		}
+		$(".posmarker").tooltip();
 	}
 }
 
