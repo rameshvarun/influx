@@ -34,6 +34,12 @@ $("#newSource").click(function() {
 					$( "#newSourceDialog" ).dialog( "close" );
 					newSource( );
 				}
+			},
+			{
+				text: "CANCEL",
+				click: function() {
+					$( "#newSourceDialog" ).dialog( "close" );
+				}
 			}
 		]
 	});
@@ -177,6 +183,12 @@ function newSource(obj) {
 						});
 					}
 				}
+			},
+			{
+				text: "CANCEL",
+				click: function() {
+					$( this ).dialog( "close" );
+				}
 			}
 			]
 		});
@@ -236,6 +248,12 @@ $("#newViz").click(function() {
 			click: function() {
 				$( "#newVizDialog" ).dialog( "close" );
 				newViz();
+			}
+		},
+		{
+			text: "CANCEL",
+			click: function() {
+				$( "#newVizDialog" ).dialog( "close" );
 			}
 		}
 		]
@@ -324,6 +342,12 @@ function newViz(obj) {
 							id : viz_element.id
 						});
 					}
+				}
+			},
+			{
+				text: "CANCEL",
+				click: function() {
+					$( this ).dialog( "close" );
 				}
 			}
 			]
