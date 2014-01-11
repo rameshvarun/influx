@@ -71,6 +71,7 @@ TABLE = {
 					}
 					if(count == 0) {
 						obj.data.splice(row, 1);
+						--row;
 					}
 				}
 				

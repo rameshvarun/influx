@@ -510,6 +510,7 @@ function newViz(obj) {
 			viz_element.type.postrender(viz_element);
 		}
 		catch(err) {
+			console.log(err.message);
 			$('#preview').html(render_error);
 		}
 	});
