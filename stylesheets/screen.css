@@ -116,3 +116,9 @@ html, body {
 .no-close .ui-dialog-titlebar-close {
   display: none;
 }
+
+#table_editor {
+  padding-top: 64px;
+  padding-left: 64px;
+  overflow: scroll;
+}

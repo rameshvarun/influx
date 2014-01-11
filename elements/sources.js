@@ -1,5 +1,12 @@
 //Define all sources
 
+var maxed = false
+    , resizeTimeout
+    , availableWidth
+    , availableHeight
+    , $window = $(window)
+    , $table_editor = $('#table_editor');
+
 //Table source
 TABLE = {
 	"id" : 'table',
