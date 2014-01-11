@@ -42,3 +42,22 @@ function updateDB() {
 		console.log("Successfully persisted changes to Azure with id " + item.id);
 	} );
 }
+
+function newElement(type) {
+	obj = {
+		type : type,
+		name : "",
+		id : makeid(),
+		x : 0,
+		y : 0
+	}
+	
+	obj.type.initialize( obj);
+	return obj;
+}
+
+$(function() {
+	element = newElement(TABLE);
+	$('#content').html(element.type.render(element));
+	element.type.postrender(element)
+})
