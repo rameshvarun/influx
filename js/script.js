@@ -95,7 +95,8 @@ function in_mouseup() {
 	
 	updateDB();
 	
-	TogetherJS.send({ type : "update_element", obj : out_element });
+	if (TogetherJS.running)
+		TogetherJS.send({ type : "update_element", obj : out_element });
 }
 
 function newSource(obj) {
@@ -165,12 +166,14 @@ function newSource(obj) {
 					$( this ).dialog( "close" );
 					$("#s" + count ).html( $("#sourceName" + count ).val() );
 					source_element.name = $("#sourceName" + count ).val();
-					TogetherJS.send({
-						type : "change_name",
-						new_name : $("#sourceName" + count ).val(),
-						div : "#s" + count,
-						id : source_element.id
-					});
+					if (TogetherJS.running) {
+						TogetherJS.send({
+							type : "change_name",
+							new_name : $("#sourceName" + count ).val(),
+							div : "#s" + count,
+							id : source_element.id
+						});
+					}
 				}
 			}
 			]
@@ -311,12 +314,14 @@ function newViz(obj) {
 					viz_element.name = $("#vizName" + count ).val();
 					
 					//Send changes to clients
-					TogetherJS.send({
-						type : "change_name",
-						new_name : $("#vizName" + count ).val(),
-						div : "#v" + count,
-						id : viz_element.id
-					});
+					if (TogetherJS.running) {
+						TogetherJS.send({
+							type : "change_name",
+							new_name : $("#vizName" + count ).val(),
+							div : "#v" + count,
+							id : viz_element.id
+						});
+					}
 				}
 			}
 			]
