@@ -85,6 +85,7 @@ IMAGE = {
 	},
 	"initialize" : function(obj) {
 		obj.url = "";
+		obj.imagedata = null;
 	},
 	"serialize" : function(obj) {
 	},
@@ -93,7 +94,7 @@ IMAGE = {
 	"render" : function(obj) {
 		html = "<table style='width:100%;height:100%;'><tbody>";
 		html += "<tr><td style='text-align:center;color:rgb(0,0,0); '><br><br><br><br>Enter Image URL: <input id='image_url' type='text'></input></td></tr>";
-		html += "<tr><td style='text-align:center; vertical-align:middle'><center><img id='image_container' src='" + obj.url + "'></img></center></td></tr>";
+		html += "<tr><td style='text-align:center; vertical-align:middle'><center><canvas id='image_preview' ></canvas></center></td></tr>";
 		html += "</tbody></table>";
 		
 		return html;
@@ -101,15 +102,30 @@ IMAGE = {
 	"postrender" : function(obj) {
 		$('#image_url').val(obj.url);
 		
+		var image_preview = document.getElementById('image_preview');
+		var image_context = image_preview.getContext('2d');
+		
+		function drawCanvas() {
+			var imageObj = new Image();
+			imageObj.onload = function() {
+				image_preview.width = imageObj.width;
+				image_preview.height = imageObj.height;
+				image_preview.style.width = imageObj.width;
+				image_preview.style.height = imageObj.height; 
+				image_context.drawImage(imageObj, 0, 0);
+			};
+			imageObj.src = obj.url;
+		}
+		drawCanvas();
+		
 		$('#image_url').change(function() {
-			$('#image_container').attr('src', $('#image_url').val() );
 			obj.url = $('#image_url').val();
 			updateDB();
 			if (TogetherJS.running)
 				TogetherJS.send({ type : "update_element", obj : obj });
+			drawCanvas()
 		});
 	},
-	"get" : function(obj) {
-		return "";
+	"get" : function(obj, result) {
 	}
 }
