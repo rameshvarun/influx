@@ -116,3 +116,11 @@ html, body {
 .no-close .ui-dialog-titlebar-close {
   display: none;
 }
+
+#table_editor {
+  overflow: scroll;
+}
+
+li {
+  display: inline;
+}

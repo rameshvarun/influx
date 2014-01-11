@@ -1,5 +1,19 @@
 //Define all sources
 
+var maxed = false
+    , resizeTimeout
+    , availableWidth
+    , availableHeight
+    , $window = $(window)
+    , $table_editor = $('#table_editor');
+
+var calculateSize = function () {
+    var offset = $example1.offset();
+    availableWidth = $window.width() - offset.left + $window.scrollLeft();
+    availableHeight = $window.height() - offset.top + $window.scrollTop();
+};
+$window.on('resize', calculateSize);
+
 //Table source
 TABLE = {
 	"id" : 'table',
@@ -19,28 +33,25 @@ TABLE = {
 	"render" : function(obj) {
 		html = "<div>";
 		
-		html += "<select id='type_select'>";
-		html += "<option>Table Editor</option>";
-		html += "<option>CSV</option>";
-		html += "<option>Excel File</option>";
-		html += "<option>Google Docs</option>";
-		html += "</select><br><br>";
-		
 		html += "<div id='table_editor' class='handsontable'></div>"
 		
 		html += "</div>";
 		return html;
 	},
 	"postrender" : function(obj) {
-		$("#type_select").select2();
 		$('#table_editor').handsontable({
 			data : obj.data,
-			minRows: 2,
-			minCols: 2,
+			rowHeaders: true,
+			colHeaders: true,
+			minRows: 1000,
+			minCols: 26,
 			minSpareCols : 1,
 			minSpareRows : 1,
+			stretchH: 'all',
 			colHeaders: true,
 			contextMenu: true,
+			width: $('#preview').width(),
+		    height: $('#preview').height(),
 			afterChange: function (change, source) {
 				obj.data = JSON.parse(JSON.stringify($('#table_editor').data('handsontable').getData()));
 				
