@@ -80,6 +80,44 @@ BARCHART = {
 	}
 }
 
+VIDEOENGAGEMENT = {
+	"displayname" : "Video Engagement",
+	"tags" : ["visualizer"],
+	"inputs" : [{
+		"name" : "table",
+		"type" : "table"
+	}],
+	"output" : null,
+	"initialize" : function(obj) {
+	},
+	"serialize" : function(obj) {
+	},
+	"deserialize" : function(obj) {
+	},
+	"render" : function(obj) {
+		return "<div><input id='video_id' type='text'></input><br><div id='ytplayer'></div><br><div id='timeline' width='640px'></div>";
+	},
+	"postrender" : function(obj) {
+		//Get data array
+		var array = obj.inputs.table.type.get(obj.inputs.table);
+
+		$('#video_id').change(function() {
+			//console.log( );
+			player.loadVideoById( $('#video_id').val() );
+		})
+		
+		player = new YT.Player('ytplayer', {
+		  height: '390',
+		  width: '640',
+		  videoId: $('#video_id').val()
+		});
+		
+		for(var i = 1; i < array.length; ++i) {
+			$("#timeline").append('<div title="' + array[i][0] + '" style="position:absolute; left:' + array[i][1]*640/100 + 'px;">|</div>');
+		}
+	}
+}
+
 COLUMNCHART = {
 	"displayname" : "Column Chart",
 	"tags" : ["visualizer"],
