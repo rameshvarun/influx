@@ -7,6 +7,51 @@
 	<title>Influx</title>
 	<link href="stylesheets/flat-ui.css" media="screen, projection" rel="stylesheet" type="text/css" />
 	<link href="stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+	
+	<!-- JQuery -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+	
+	<!-- Azure Data Backend -->
+	<script src='//influx.azure-mobile.net/client/MobileServices.Web-1.0.0.min.js'></script>
+	
+	<!-- Backend files -->
+	<script src='utils.js'></script>
+	<script src='env.js'></script>
+	<script src='db.js'></script>
+	<script src='elements/sources.js'></script>
+	<script src='elements/operators.js'></script>
+	<script src='elements/visualizers.js'></script>
+	<script src='elements/elements.js'></script>
+	
+	<!-- Select2 -->
+	<link href="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.css" rel="stylesheet"/>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.js"></script>
+	
+	<!-- Hands On Table Library -->
+	<script src="http://handsontable.com/dist/jquery.handsontable.full.js"></script>
+	<link rel="stylesheet" media="screen" href="http://handsontable.com/dist/jquery.handsontable.full.css">
+	
+	<!--Google Charts API-->
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+	 // Load the Visualization API and the piechart package.
+	google.load('visualization', '1.0', {'packages':['corechart']});
+	</script>
+	
+	<!-- YouTube Iframe API -->
+	<script type="text/javascript" src="https://www.youtube.com/player_api"></script>
+
+	<!-- Google Maps -->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM0t2phm5nv-C2LRFuqUyrEfLYpTFjk_M&sensor=false"></script>
+	<style>
+	#map-canvas {
+			height: 100%;
+			margin: 0px;
+			padding: 0px;
+	}
+	</style>
+	
 </head>
 <body>
 	<div class="navbar palette palette-night-dark">Influx</div>
@@ -17,10 +62,10 @@
 				<p>Source</p>
 			</div>
 			<div id="newSourceDialog" class="dialog">
-				<form>
 					<label for="sourceName">Source Name</label>
-					<input type="text" label="sourceName">
-				</form>
+					<input id='sourceName' type="text" label="sourceName">
+					<label>Source Type</label><br>
+					<input style="width:100%;" id='sourceType'></input>
 			</div>
 			<div id="newOperator" class="add objButton operator">
 				+
@@ -49,9 +94,7 @@
 		</div>
 	</div>
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+	<!-- UI Logic -->
 	<script src="js/script.js"></script>
-
 </body>
 </html>

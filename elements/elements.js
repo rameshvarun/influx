@@ -21,6 +21,18 @@ function getTypesWithTag(tag) {
 	return types;
 }
 
+function getTypeById(id) {
+	for(var i = 0; i < ELEMENT_TYPES.length; ++i) {
+		if(ELEMENT_TYPES[i].id == id ) {
+			return ELEMENT_TYPES[i];
+		}
+	}
+}
+
+function formatElement(item) {
+	return item.displayname;
+}
+
 if(window.location.hash) {
 	//If there is a hash, we already know the id of the workspace
 	WorkspaceTable.lookup( window.location.hash.slice(1) ).done(
@@ -62,85 +74,7 @@ function newElement(type) {
 	}
 	
 	obj.type.initialize( obj);
+	elements.push(obj);
+	
 	return obj;
-}
-
-$(function() {
-	$( document ).tooltip();
-	
-	element = newElement(TABLE);
-	$('#content').html(element.type.render(element));
-	element.type.postrender(element)
-})
-
-function showPie() {
-	chart = newElement(PIECHART);
-	chart.inputs.table = element;
-	
-	$('#content').append(chart.type.render(chart));
-	chart.type.postrender(chart);
-}
-
-function showBar() {
-	chart = newElement(BARCHART);
-	chart.inputs.table = element;
-	
-	$('#content').append(chart.type.render(chart));
-	chart.type.postrender(chart);
-}
-
-function showVideo() {
-	chart = newElement(VIDEOENGAGEMENT);
-	chart.inputs.table = element;
-	
-	$('#content').append(chart.type.render(chart));
-	chart.type.postrender(chart);
-}
-
-function showColumn() {
-	chart = newElement(COLUMNCHART);
-	chart.inputs.table = element;
-	
-	$('#content').append(chart.type.render(chart));
-	chart.type.postrender(chart);
-}
-
-function showLine() {
-	chart = newElement(LINECHART);
-	chart.inputs.table = element;
-	
-	$('#content').append(chart.type.render(chart));
-	chart.type.postrender(chart);
-}
-
-function showScatter() {
-	chart = newElement(SCATTERCHART);
-	chart.inputs.table = element;
-	
-	$('#content').append(chart.type.render(chart));
-	chart.type.postrender(chart);
-}
-
-function showArea() {
-	chart = newElement(AREACHART);
-	chart.inputs.table = element;
-	
-	$('#content').append(chart.type.render(chart));
-	chart.type.postrender(chart);
-}
-
-function showCandlestick() {
-	chart = newElement(CANDLESTICKCHART);
-	chart.inputs.table = element;
-	
-	$('#content').append(chart.type.render(chart));
-	chart.type.postrender(chart);
-}
-
-function showMap() {
-	chart = newElement(GOOGLEMAPS);
-	chart.inputs.table = element;
-	
-	$('#content').append(chart.type.render(chart));
-	chart.type.postrender(chart);
 }

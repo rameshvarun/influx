@@ -2,6 +2,7 @@
 
 //Table source
 TABLE = {
+	"id" : 'table',
 	"displayname" : "Table",
 	"tags" : ["source"],
 	"inputs" : [],
