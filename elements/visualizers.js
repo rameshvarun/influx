@@ -2,6 +2,7 @@
 
 PIECHART = {
 	"displayname" : "Pie Chart",
+	"id" : 'piechart',
 	"tags" : ["visualizer"],
 	"inputs" : [{
 		"name" : "table",
@@ -33,8 +34,8 @@ PIECHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 400,
-            'height':300
+            'width': 800,
+            'height':600
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
@@ -45,6 +46,7 @@ PIECHART = {
 
 BARCHART = {
 	"displayname" : "Bar Chart",
+	"id" : 'barchart',
 	"tags" : ["visualizer"],
 	"inputs" : [{
 		"name" : "table",
@@ -70,8 +72,8 @@ BARCHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 400,
-            'height':300
+            'width': 800,
+            'height':600
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
@@ -82,6 +84,7 @@ BARCHART = {
 
 VIDEOENGAGEMENT = {
 	"displayname" : "Video Engagement",
+	"id" : 'videngage',
 	"tags" : ["visualizer"],
 	"inputs" : [{
 		"name" : "table",
@@ -120,6 +123,7 @@ VIDEOENGAGEMENT = {
 
 COLUMNCHART = {
 	"displayname" : "Column Chart",
+	"id" : 'colchart',
 	"tags" : ["visualizer"],
 	"inputs" : [{
 		"name" : "table",
@@ -145,8 +149,8 @@ COLUMNCHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 400,
-            'height':300
+            'width': 800,
+            'height':600
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
@@ -157,6 +161,7 @@ COLUMNCHART = {
 
 LINECHART = {
 	"displayname" : "Line Chart",
+	"id" : 'linechart',
 	"tags" : ["visualizer"],
 	"inputs" : [{
 		"name" : "table",
@@ -182,8 +187,8 @@ LINECHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 400,
-            'height':300
+            'width': 800,
+            'height':600
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
@@ -194,6 +199,7 @@ LINECHART = {
 
 SCATTERCHART = {
 	"displayname" : "Scatter Chart",
+	"id" : 'scatterchart',
 	"tags" : ["visualizer"],
 	"inputs" : [{
 		"name" : "table",
@@ -219,8 +225,8 @@ SCATTERCHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 400,
-            'height':300
+            'width': 800,
+            'height':600
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
@@ -231,6 +237,7 @@ SCATTERCHART = {
 
 AREACHART = {
 	"displayname" : "Area Chart",
+	"id" : 'areachart',
 	"tags" : ["visualizer"],
 	"inputs" : [{
 		"name" : "table",
@@ -256,8 +263,8 @@ AREACHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 400,
-            'height':300
+            'width': 800,
+            'height':600
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
@@ -268,6 +275,7 @@ AREACHART = {
 
 CANDLESTICKCHART = {
 	"displayname" : "Candlestick Chart",
+	"id" : 'candlechart',
 	"tags" : ["visualizer"],
 	"inputs" : [{
 		"name" : "table",
@@ -293,8 +301,8 @@ CANDLESTICKCHART = {
 		// Set chart options
         var options = {
 			'title': obj.name,
-            'width': 400,
-            'height':300
+            'width': 800,
+            'height':600
 		};
 		
 		// Instantiate and draw our chart, passing in some options.
@@ -305,6 +313,7 @@ CANDLESTICKCHART = {
 
 GOOGLEMAPS = {
 	"displayname" : "Google Maps",
+	"id" : 'googlemaps',
 	"tags" : ["visualizer"],
 	"inputs" : [{
 		"name" : "table",

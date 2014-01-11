@@ -52,11 +52,16 @@
 	}
 	</style>
 	
+	<!-- Raphael.js -->
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+	
 </head>
 <body>
 	<div class="navbar palette palette-night-dark">Influx</div>
 	<div id="content">
 		<div id="workArea" class="workArea palette-concrete">
+			<canvas id="myCanvas" style="width:100%;height:100%;"></canvas>
+			
 			<div id="newSource" class="add objButton source">
 				+
 				<p>Source</p>
@@ -65,27 +70,27 @@
 					<label for="sourceName">Source Name</label>
 					<input id='sourceName' type="text" label="sourceName">
 					<label>Source Type</label><br>
-					<input style="width:100%;" id='sourceType'></input>
+					<input element_type='source' class='type_selector' style="width:100%;" id='sourceType'></input>
 			</div>
 			<div id="newOperator" class="add objButton operator">
 				+
 				<p>Operator</p>
 			</div>
 			<div id="newOperatorDialog" class="dialog">
-				<form>
-					<label for="operatorName">Operator Name</label>
-					<input type="text" label="operatorName">
-				</form>
+				<label for="operatorName">Operator Name</label>
+				<input id='operatorName' type="text" label="operatorName">
+				<label>Operator Type</label><br>
+				<input element_type='operator' class='type_selector' style="width:100%;" id='operatorType'></input>
 			</div>
 			<div id="newViz" class="add objButton viz">
 				+
 				<p>Visualizer</p>
 			</div>
 			<div id="newVizDialog" class="dialog">
-				<form>
-					<label for="vizName">Visualization Name</label>
-					<input type="text" label="vizName">
-				</form>
+				<label for="vizName">Visualization Name</label>
+				<input id='vizName' type="text" label="vizName">
+				<label>Visualizer Type</label><br>
+				<input element_type='visualizer' class='type_selector' style="width:100%;" id='vizType'></input>
 			</div>
 			
 		</div>

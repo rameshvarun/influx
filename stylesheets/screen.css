@@ -23,6 +23,7 @@ html, body {
   width: 50%;
   height: 100%;
   float: left;
+  box-shadow: 5px 5px 10px #888888 inset;
 }
 
 /* line 1, ../sass/_modules.sass */
@@ -37,6 +38,7 @@ html, body {
   position: absolute;
   cursor: pointer;
   float: left;
+  box-shadow: 5px 5px 5px #888888;
 }
 /* line 12, ../sass/_modules.sass */
 .objButton p {
@@ -71,6 +73,18 @@ html, body {
   background-color: #3498db;
   top: 40%;
 }
+
+.arrow-out {
+	width: 10px; 
+	height: 10px; 
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-top: 20px solid #f00;
+	//position: absolute;
+	//cursor: pointer;
+	//float: left;
+}
+
 
 /* line 34, ../sass/_modules.sass */
 #newOperatorDialog {
