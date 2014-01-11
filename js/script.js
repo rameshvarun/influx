@@ -460,6 +460,7 @@ function newViz(obj) {
 		in_box.attr('data-inputname', input.name );
 		in_box.css("position", "absolute" );
 		in_box.css("width", "20px" );
+		in_box.css("height", "20px");
 		in_box.css("z-index", "5" );
 		var offset = i*30;
 		in_box.css("top", (parent.position().top - 5 + offset) + "px");
