@@ -55,7 +55,7 @@ d3.csv("data/pie.csv", function(error, data) {
       .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
       .attr("dy", ".35em")
       .style("text-anchor", "middle")
-      .text(function(d) { return d.data.xdata; });
+      .text(function(d) { return d.data.xdata + " " + d.data.ydata; });
 
 });
 
