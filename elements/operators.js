@@ -20,10 +20,16 @@ TIMECOLLAPSE = {
 	"deserialize" : function(obj) {
 	},
 	"render" : function(obj) {
-		html = "<div>";
+		html = "<table style='width:100%;height:100%;color:rgb(0,0,0);'><tbody>";
+		html += "<tr>";
+		html += "<td><center>";
 		html += "Collapsing Technique: <select id='collapse_type'><option value='average'>Average of Sub-Intervals</option><option value='first'>First Sub-Intervals</option><option value='largest'>Largest Sub-Interval</option></select>";
+		html += "</center></td>";
+		html += "<td><center>";
 		html += "Interval Time: <input type='text' id='interval_time'></input>";
-		html += "</div>";
+		html += "</center></td>";
+		html += "</tr>";
+		html += "</tbody></table>";
 		return html;
 	},
 	"postrender" : function(obj) {
