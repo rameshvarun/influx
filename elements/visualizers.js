@@ -302,3 +302,51 @@ CANDLESTICKCHART = {
         chart.draw(data, options);
 	}
 }
+
+GOOGLEMAPS = {
+	"displayname" : "Google Maps",
+	"tags" : ["visualizer"],
+	"inputs" : [{
+		"name" : "table",
+		"type" : "table"
+	}],
+	"output" : null,
+	"initialize" : function(obj) {
+	},
+	"serialize" : function(obj) {
+	},
+	"deserialize" : function(obj) {
+	},
+	"render" : function(obj) {
+		return "<div><div id='map-canvas'></div></div>";
+	},
+	"postrender" : function(obj) {
+		//Get data array
+		var array = obj.inputs.table.type.get(obj.inputs.table);
+		
+		var mapOptions = {
+			center: new google.maps.LatLng(-34.397, 150.644),
+			zoom: 8,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		
+		var bounds = new google.maps.LatLngBounds();
+		
+		var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+		
+		for(var i = 1; i < array.length; ++i) {
+			latlong = new google.maps.LatLng(array[i][0], array[i][1]);
+			marker = new google.maps.Marker({
+				position : latlong,
+				map : map
+			});
+			
+			if(array[i].length > 2)
+				marker.setTitle(array[i][2]);
+			
+			bounds.extend(latlong);
+		}
+		
+		map.fitBounds(bounds);
+	}
+}
