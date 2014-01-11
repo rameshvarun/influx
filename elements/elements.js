@@ -1,6 +1,6 @@
 //Global element manipulation
 
-ELEMENT_TYPES = [TABLE, PIECHART, BARCHART, COLUMNCHART, LINECHART, SCATTERCHART] //Stores all the element types (essentially the classes)
+ELEMENT_TYPES = [TABLE, PIECHART, BARCHART, COLUMNCHART, LINECHART, SCATTERCHART, AREACHART, CANDLESTICKCHART] //Stores all the element types (essentially the classes)
 elements = [] //Stores a list of the actual elements
 
 function getElement(id) {
@@ -113,6 +113,14 @@ function showScatter() {
 
 function showArea() {
 	chart = newElement(AREACHART);
+	chart.inputs.table = element;
+	
+	$('#content').append(chart.type.render(chart));
+	chart.type.postrender(chart);
+}
+
+function showCandlestick() {
+	chart = newElement(CANDLESTICKCHART);
 	chart.inputs.table = element;
 	
 	$('#content').append(chart.type.render(chart));
