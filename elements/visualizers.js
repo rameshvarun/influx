@@ -24,24 +24,48 @@ PIECHART = {
 		
 		//Get data array
 		var table = getElement(obj.inputs.table);
-		var array = table.type.get(table);
-		data.addColumn('string', array[0][0]);
-		data.addColumn('number', array[0][1]);
 		
-		for(var i = 1; i < array.length; ++i) {
-			data.addRow( [  array[i][0], parseFloat(array[i][1])  ] );
+		if(table.type.get) {
+			var array = table.type.get(table);
+			data.addColumn('string', array[0][0]);
+			data.addColumn('number', array[0][1]);
+			
+			for(var i = 1; i < array.length; ++i) {
+				data.addRow( [  array[i][0], parseFloat(array[i][1])  ] );
+			}
+			
+			// Set chart options
+			var options = {
+				'title': obj.name,
+				'width': $('#preview').width(),
+				'height': $('#preview').height()
+			};
+			
+			// Instantiate and draw our chart, passing in some options.
+			var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+			chart.draw(data, options);
 		}
-		
-		// Set chart options
-        var options = {
-			'title': obj.name,
-            'width': $('#preview').width(),
-            'height': $('#preview').height()
-		};
-		
-		// Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+		else {
+			table.type.getasync(table, function(array) {
+				data.addColumn('string', array[0][0]);
+				data.addColumn('number', array[0][1]);
+				
+				for(var i = 1; i < array.length; ++i) {
+					data.addRow( [  array[i][0], parseFloat(array[i][1])  ] );
+				}
+				
+				// Set chart options
+				var options = {
+					'title': obj.name,
+					'width': $('#preview').width(),
+					'height': $('#preview').height()
+				};
+				
+				// Instantiate and draw our chart, passing in some options.
+				var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+				chart.draw(data, options);
+			});
+		}
 	}
 }
 
@@ -66,21 +90,41 @@ BARCHART = {
 	"postrender" : function(obj) {
 		//Get data array
 		var table = getElement(obj.inputs.table);
-		var array = table.type.get(table);
+		
+		if(table.type.get) {
+			var array = table.type.get(table);
 
-		//Create the data table
-		var data = new google.visualization.arrayToDataTable(array);
-		
-		// Set chart options
-        var options = {
-			'title': obj.name,
-            'width': $('#preview').width(),
-            'height': $('#preview').height()
-		};
-		
-		// Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+			//Create the data table
+			var data = new google.visualization.arrayToDataTable(array);
+			
+			// Set chart options
+			var options = {
+				'title': obj.name,
+				'width': $('#preview').width(),
+				'height': $('#preview').height()
+			};
+			
+			// Instantiate and draw our chart, passing in some options.
+			var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+			chart.draw(data, options);
+		}
+		else {
+			table.type.getasync(table, function(array) {
+				//Create the data table
+				var data = new google.visualization.arrayToDataTable(array);
+				
+				// Set chart options
+				var options = {
+					'title': obj.name,
+					'width': $('#preview').width(),
+					'height': $('#preview').height()
+				};
+				
+				// Instantiate and draw our chart, passing in some options.
+				var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+				chart.draw(data, options);
+			});
+		}
 	}
 }
 
@@ -383,5 +427,42 @@ GOOGLEMAPS = {
 		}
 		
 		map.fitBounds(bounds);
+	}
+}
+
+IMAGEVIEW = {
+	"displayname" : "Image Viewer",
+	"id" : 'imageview',
+	"tags" : ["visualizer"],
+	"inputs" : [{
+		"name" : "image",
+		"type" : "image"
+	}],
+	"output" : null,
+	"initialize" : function(obj) {
+	},
+	"serialize" : function(obj) {
+	},
+	"deserialize" : function(obj) {
+	},
+	"render" : function(obj) {
+		return "<canvas id='image_preview' ></canvas>";
+	},
+	"postrender" : function(obj) {
+		var image = getElement(obj.inputs.image);
+		image.type.get(image, function(dataurl) {
+			var image_preview = document.getElementById('image_preview');
+			var image_context = image_preview.getContext('2d');
+		
+			var imageObj = new Image();
+			imageObj.onload = function() {
+				image_preview.width = imageObj.width;
+				image_preview.height = imageObj.height;
+				image_preview.style.width = imageObj.width;
+				image_preview.style.height = imageObj.height; 
+				image_context.drawImage(imageObj, 0, 0);
+			};
+			imageObj.src = dataurl;
+		} );
 	}
 }
