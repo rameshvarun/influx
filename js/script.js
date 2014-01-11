@@ -94,9 +94,14 @@ function in_mouseup() {
 	console.log("Connected two elements.");
 	
 	updateDB();
+	
+	TogetherJS.send({ type : "update_element", obj : out_element });
 }
 
 function newSource(obj) {
+	if(!obj && $('#sourceType').val().length < 1)
+		return;
+		
 	sCount += 1;
 	
 	var name;
@@ -112,6 +117,11 @@ function newSource(obj) {
 		source_type = getTypeById($('#sourceType').val());
 		source_element = newElement(source_type);
 		source_element.name = name;
+		
+		//If the source was created here, tell the other clients in session to replicate this source
+		if (TogetherJS.running) {
+			TogetherJS.send({ type : "newsource", element : source_element });
+		}
 	}
 	else {
 		source_element = obj;
@@ -155,6 +165,12 @@ function newSource(obj) {
 					$( this ).dialog( "close" );
 					$("#s" + count ).html( $("#sourceName" + count ).val() );
 					source_element.name = $("#sourceName" + count ).val();
+					TogetherJS.send({
+						type : "change_name",
+						new_name : $("#sourceName" + count ).val(),
+						div : "#s" + count,
+						id : source_element.id
+					});
 				}
 			}
 			]
@@ -168,6 +184,38 @@ function newSource(obj) {
 
 }
 
+
+//Replicate source creation
+TogetherJS.hub.on('newsource', function (msg) {
+	var element = msg.element;
+	element.type = getTypeById(element.type.id);
+	newSource(element);
+});
+
+//Replicate vis creation
+TogetherJS.hub.on('newviz', function (msg) {
+	var element = msg.element;
+	element.type = getTypeById(element.type.id);
+	newViz(element);
+});
+
+//Element has its name changed
+TogetherJS.hub.on("change_name", function (msg) {
+	$(msg.div).html( msg.new_name );
+	getElement(msg.id).name = msg.new_name;
+});
+
+//The element has been updated somehow
+TogetherJS.hub.on('update_element', function (msg) {
+	var element = msg.obj;
+	element.type = getTypeById(element.type.id);
+	for(var i = 0; i < elements.length; ++i) {
+		if(elements[i].id == element.id) {
+			elements[i] = element;
+		}
+	}
+	drawConnections();
+});
 
 
 // Visualizers
@@ -191,6 +239,9 @@ $("#newViz").click(function() {
 
 
 function newViz(obj) {
+	if(!obj && $('#vizType').val().length < 1)
+		return;
+		
 	vCount += 1;
 	
 	var name;
@@ -206,6 +257,11 @@ function newViz(obj) {
 		viz_type = getTypeById($('#vizType').val());
 		viz_element = newElement(viz_type);
 		viz_element.name = name;
+		
+		//If the viz was created here, tell the other clients in session to replicate this source
+		if (TogetherJS.running) {
+			TogetherJS.send({ type : "newviz", element : viz_element });
+		}
 	}
 	else {
 		viz_element = obj;
@@ -253,6 +309,14 @@ function newViz(obj) {
 					$( this ).dialog( "close" );
 					$("#v" + count ).html( $("#vizName" + count ).val() );
 					viz_element.name = $("#vizName" + count ).val();
+					
+					//Send changes to clients
+					TogetherJS.send({
+						type : "change_name",
+						new_name : $("#vizName" + count ).val(),
+						div : "#v" + count,
+						id : viz_element.id
+					});
 				}
 			}
 			]

@@ -56,9 +56,13 @@
 	<!-- Raphael.js -->
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
 	
+	<!-- Together.js -->
+	<script src="//togetherjs.com/togetherjs-min.js"></script>
+	
 </head>
 <body>
 	<div class="navbar palette palette-night-dark">Influx</div>
+	<div style="position:absolute;right:0%;bottom:0%;"><a onclick="TogetherJS(this); return false;"><img src="https://togetherjs.com/images/start-togetherjs-blue.png" style="width: 205px;" /></a></div>
 	<div id="content">
 		<div id="workArea" class="workArea palette-concrete">
 			<canvas id="myCanvas" style="width:100%;height:100%;"></canvas>

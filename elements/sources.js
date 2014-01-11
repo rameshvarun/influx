@@ -64,6 +64,8 @@ TABLE = {
 				}
 				
 				updateDB();
+				TogetherJS.send({ type : "update_element", obj : obj });
+
 			}
 		});
 	},

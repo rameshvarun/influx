@@ -115,6 +115,7 @@ VIDEOENGAGEMENT = {
 			player.loadVideoById( $('#video_id').val() );
 			obj.videoid = $('#video_id').val();
 			updateDB();
+			TogetherJS.send({ type : "update_element", obj : obj });
 		})
 		
 		player = new YT.Player('ytplayer', {
