@@ -1,6 +1,6 @@
 //Global element manipulation
 
-ELEMENT_TYPES = [TABLE, PIECHART, BARCHART, VIDEOENGAGEMENT] //Stores all the element types (essentially the classes)
+ELEMENT_TYPES = [TABLE, PIECHART, BARCHART, COLUMNCHART, LINECHART, SCATTERCHART, VIDEOENGAGEMENT] //Stores all the element types (essentially the classes)
 elements = [] //Stores a list of the actual elements
 
 function getElement(id) {
@@ -91,6 +91,38 @@ function showBar() {
 
 function showVideo() {
 	chart = newElement(VIDEOENGAGEMENT);
+	chart.inputs.table = element;
+	
+	$('#content').append(chart.type.render(chart));
+	chart.type.postrender(chart);
+}
+
+function showColumn() {
+	chart = newElement(COLUMNCHART);
+	chart.inputs.table = element;
+	
+	$('#content').append(chart.type.render(chart));
+	chart.type.postrender(chart);
+}
+
+function showLine() {
+	chart = newElement(LINECHART);
+	chart.inputs.table = element;
+	
+	$('#content').append(chart.type.render(chart));
+	chart.type.postrender(chart);
+}
+
+function showScatter() {
+	chart = newElement(SCATTERCHART);
+	chart.inputs.table = element;
+	
+	$('#content').append(chart.type.render(chart));
+	chart.type.postrender(chart);
+}
+
+function showArea() {
+	chart = newElement(AREACHART);
 	chart.inputs.table = element;
 	
 	$('#content').append(chart.type.render(chart));
