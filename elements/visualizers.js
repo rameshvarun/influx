@@ -1,10 +1,10 @@
-TABLE = {
-	"displayname" : "Table",
-	"tags" : ["source"],
-	"inputs" : [],
-	"output" : {
+PIECHART = {
+	"displayname" : "Pie Chart",
+	"tags" : ["visualizer"],
+	"inputs" : [{
 		"type" : "table"
-	},
+	}],
+	"output" : null,
 	"initialize" : function(obj) {
 	},
 	"serialize" : function(obj) {
