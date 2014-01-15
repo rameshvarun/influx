@@ -11,7 +11,7 @@ I can connect that to a `Pie Chart` visualizer, and see the results as a Pie cha
 
 ![Imgur](http://i.imgur.com/bUFveKJ.png)
 
-Influx also has rudimentary support for real-time collaboration with any number of users, with audio chat, using a library called Together.JS
+Influx also has rudimentary support for real-time collaboration with any number of users, with audio chat, using a library called Together.JS. Work-spaces are persisted using Azure Mobile Services.
 
 ![Imgur](http://i.imgur.com/RggYCQq.png)
 
