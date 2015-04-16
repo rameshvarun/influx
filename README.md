@@ -26,3 +26,12 @@ The data model in Influx is abstract enough to be used even for image processing
 The example below shows an operator with settings. This operator takes sensor data measured on 15 minute intervals, and collapses it into intervals of 60 minutes.
 
 ![Imgur](http://i.imgur.com/xASqiRk.png)
+
+## Setting up
+Create a file called env.js in the top directory, with the following format.
+```javscript
+ENV = {
+	"AZURE_APP_KEY" : "Your azure mobile data key.",
+	"APP_URL" : "Your azure app URL."
+}
+```
